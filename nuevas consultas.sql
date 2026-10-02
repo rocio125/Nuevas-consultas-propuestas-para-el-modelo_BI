@@ -6,7 +6,8 @@ from los_mejores.bi_venta v
 inner join los_mejores.bi_tiempo t
 	on v.tiempo_id = t.id 
 group by t.año, t.mes
-
+order by t.año
+	
 --2.¿Qué rubros generan mayor volumen de ventas?
 
 select r.id as rubro, sum (v.cantidad_vendida) as cantidad_vendida, sum (v.importe) importe_vendido
@@ -15,7 +16,7 @@ inner join los_mejores.bi_producto p
 	on v.producto_id = p.id
 inner join los_mejores.bi_rubro r
 	on p.bi_rubro_id = r.id 
-group by r.id
+group by r.id 
 
 --3.¿Qué provincias concentran mayor cantidad de ventas e importe vendido?
 
