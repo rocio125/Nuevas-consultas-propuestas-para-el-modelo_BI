@@ -63,3 +63,44 @@ from los_mejores.bi_venta v
 inner join los_mejores.bi_rango_horario r_h 
 	on v.rango_horario_id = r_h.id 
 group by r_h.descripcion;
+
+--Creando nuevas consultas:
+--sobre ventas
+--¿Cuál fue el mes con mayor cantidad de ventas?
+select top 3 t.mes, count (v.id) as cantidad_ventas 
+from los_mejores.bi_venta v
+inner join los_mejores.bi_tiempo t
+	on v.tiempo_id = t.id
+group by t.mes
+order by cantidad_ventas desc;
+
+--¿Cuál es el importe promedio de una venta?
+select avg (importe) as importe_promedio_de_una_venta
+from los_mejores.bi_venta 
+
+----¿Qué productos se vendieron más?
+select top 5 p.id, sum (v.cantidad_vendida) as ventas
+from los_mejores.bi_venta v
+inner join los_mejores.bi_producto p
+	on v.producto_id = p.id
+group by p.id 
+order by ventas desc;
+
+--¿Cuántas ventas se realizaron por año?
+select count (v.id) as ventas, t.año
+from los_mejores.bi_venta v
+inner join los_mejores.bi_tiempo t
+	on v.tiempo_id = t.id
+group by t.año
+
+--sobre clientes
+--¿Qué rango de edad concentra más ventas?
+select r_e.descripcion as edad, count(v.id) as ventas 
+from los_mejores.bi_venta v
+inner join los_mejores.bi_rango_etario r_e 
+	on v.rango_etario_id = r_e.id
+group by r_e.descripcion
+order by ventas desc;
+
+
+
